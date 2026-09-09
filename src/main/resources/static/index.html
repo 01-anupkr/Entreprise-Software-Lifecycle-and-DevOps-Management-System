@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroforge Control Room</title>
+  <meta name="description" content="Neuroforge workspace operations console">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Neuroforge home"><span class="brand-mark">N</span><span>NEUROFORGE</span></a>
+      <div class="rail-label">WORKSPACE</div>
+      <nav class="nav" aria-label="Primary navigation">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">◫</span>Overview</button>
+        <button class="nav-item" data-view="users"><span class="nav-icon">◉</span>Users</button>
+        <button class="nav-item" data-view="projects"><span class="nav-icon">▣</span>Projects</button>
+        <button class="nav-item" data-view="audit"><span class="nav-icon">◌</span>Audit log</button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span><span>Local environment</span><span class="env-chip">DEV</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">NEUROFORGE / CONTROL ROOM</div><h1 id="page-title">Overview</h1></div>
+        <div class="top-actions"><span class="connection"><span class="status-dot"></span><span id="connection-label">Checking connection</span></span><button class="icon-button" id="refresh-btn" title="Refresh data" aria-label="Refresh data">↻</button><div class="account-wrap"><button class="profile" id="profile-btn" aria-expanded="false"><span class="avatar" id="avatar">AU</span><span><strong id="profile-name">Account</strong><small id="profile-email">Session</small></span><span aria-hidden="true">⌄</span></button><div class="account-menu hidden" id="account-menu"><div class="account-menu-head"><strong id="menu-name">Account</strong><span id="menu-email">Session</span><span id="menu-org">Neuroforge workspace</span><span id="menu-role">Authenticated</span></div><button id="account-settings">Preferences</button><button id="logout-btn">Sign out</button></div></div></div>
+      </header>
+
+      <section id="login-view" class="login-view hidden">
+        <div class="login-art"><div class="orbital orbital-one"></div><div class="orbital orbital-two"></div><div class="login-sign">NF<span>/</span>01</div></div>
+        <div class="login-card"><div class="eyebrow">SECURE ACCESS</div><h2>Enter the control room.</h2><p>Use a Neuroforge database account to manage workspace data.</p><form id="login-form"><label>Email<input id="login-email" type="email" value="anup.kumar@neuroforge.com" autocomplete="username" required></label><label>Password<input id="login-password" type="password" value="hashed_pass_123" autocomplete="current-password" required></label><button class="primary-button" type="submit">Sign in <span>→</span></button><div id="login-error" class="form-error"></div></form></div>
+      </section>
+
+      <section id="app-view" class="content">
+        <div id="toast" class="toast" role="status"></div>
+        <div class="hero-row"><div><p class="section-kicker">LIVE SNAPSHOT</p><h2>System at a glance</h2><p class="muted">A real-time view of the Neuroforge workspace.</p></div><button class="outline-button" id="open-docs">View API docs <span>↗</span></button></div>
+        <div class="stats-grid"><article class="stat-card accent-lime"><div class="stat-label"><span class="metric-icon users-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"></circle><path d="M3 20c.6-3.3 2.6-5 6-5s5.4 1.7 6 5"></path><path d="M16 5.5a3 3 0 0 1 0 5.8M17 15c2.3.5 3.6 2.2 4 5"></path></svg></span><span>TOTAL USERS</span></div><strong id="users-count">—</strong><small>Database records</small></article><article class="stat-card accent-cyan"><div class="stat-label"><span class="metric-icon project-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4z"></path><path d="M8 7V4h8v3M8 12h8M8 16h5"></path></svg></span><span>ACTIVE PROJECTS</span></div><strong id="projects-count">—</strong><small>Tracked in workspace</small></article><article class="stat-card accent-orange"><div class="stat-label"><span class="metric-icon api-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h4l2-7 4 14 2-7h4"></path></svg></span><span>API STATUS</span></div><strong id="api-status">—</strong><small id="api-detail">Awaiting check</small></article><article class="stat-card accent-pink"><div class="stat-label"><span class="metric-icon access-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-2.8 7.8-7 10-4.2-2.2-7-5.6-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span><span>ACCESS LEVEL</span></div><strong id="access-level">—</strong><small id="access-detail">Current session</small></article></div>
+        <div class="view-panel" id="overview-panel"><div class="panel-heading"><div><p class="section-kicker">RECENT ACTIVITY</p><h3>Workspace audit trail</h3></div><button class="text-button" data-view="audit">View full log <span>→</span></button></div><div id="activity-feed" class="activity-feed"><div class="loading">Loading activity...</div></div></div>
+        <div class="resource-panel hidden" id="resource-panel"><div class="panel-heading"><div><p class="section-kicker" id="resource-kicker">RESOURCE</p><h3 id="resource-title">Users</h3></div><button class="primary-button compact" id="new-record">＋ New record</button></div><div class="toolbar"><label class="search"><span>⌕</span><input id="search-input" placeholder="Search records..." type="search"></label><select id="role-filter" class="filter-select"><option value="">All roles</option><option>ADMIN</option><option>DEVELOPER</option><option>TESTER</option><option>USER</option></select><select id="status-filter" class="filter-select"><option value="">All statuses</option><option value="ACTIVE">Active</option></select><span class="record-count" id="record-count">0 records</span></div><div class="bulk-bar hidden" id="bulk-bar"><span id="selected-count">0 selected</span><button class="table-action delete" id="bulk-delete">Delete selected</button><button class="text-button" id="clear-selection">Clear</button></div><div id="table-wrap" class="table-wrap"><div class="loading">Loading records...</div></div><div class="pagination" id="pagination"></div></div>
+        <div class="resource-panel hidden" id="audit-panel"><div class="panel-heading"><div><p class="section-kicker">SECURITY / HISTORY</p><h3>Audit log</h3></div><span class="live-pill"><span class="status-dot"></span>Admin only</span></div><div id="audit-wrap" class="audit-list"><div class="loading">Loading audit events...</div></div></div>
+        <footer class="app-footer"><span>NEUROFORGE CONTROL ROOM</span><span>v0.0.1-SNAPSHOT · local development</span><span>Spring Boot · MySQL</span></footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modal-backdrop"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" id="modal-close" aria-label="Close">×</button><p class="section-kicker" id="modal-kicker">NEW RECORD</p><h2 id="modal-title">Create user</h2><form id="record-form"><div id="user-fields"><label>Name<input name="name" required></label><label>Email<input name="email" type="email" required></label><label>Password<input name="password" type="password" required></label><label>Role<select name="role"><option>ADMIN</option><option>DEVELOPER</option><option>TESTER</option><option>USER</option></select></label></div><div id="project-fields" class="hidden"><label>Project name<input name="projectName"></label><label>Description<textarea name="description" rows="4"></textarea></label></div><div class="modal-actions"><button type="button" class="outline-button" id="modal-cancel">Cancel</button><button type="submit" class="primary-button">Save record <span>→</span></button></div><div id="form-error" class="form-error"></div></form></section></div>
+  <script src="/app-enterprise.js"></script>
+</body>
+</html>
