@@ -161,6 +161,34 @@ Swagger/OpenAPI UI is available at:
 http://localhost:8080/swagger-ui/index.html
 ```
 
+## Project at a Glance
+
+```text
++-------------------------------+
+| Enterprise Software Lifecycle |
+| and DevOps Management System |
++-------------------------------+
+| Users  Projects  Repositories |
+| Test Cases  Audit Events      |
+| Role-Based Security           |
+| REST + Swagger API            |
++-------------------------------+
+```
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    U[User / Browser] --> UI[Static Web UI<br/>index.html, app.js, app-enterprise.js]
+    UI --> API[Spring Boot REST Controllers<br/>Users, Projects, Sessions, Health, Audit]
+    API --> S[Spring Services]
+    S --> E[Domain Entities]
+    E --> JPA[Spring Data JPA Repositories]
+    JPA --> DB[(MySQL Database)]
+    API --> SWAGGER[Swagger / OpenAPI UI]
+    API --> SEC[Spring Security]
+```
+
 ## Development and Process Flow
 
 The normal development lifecycle for this project is:
